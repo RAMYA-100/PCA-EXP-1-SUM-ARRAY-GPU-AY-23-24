@@ -30,8 +30,9 @@ Google Colab with NVCC Compiler
 
 ## PROGRAM:
 ```
+
 %%cuda
-#include <cuda_runtime.h>
+#include <cuda_runtime.h> 
 #include <stdio.h>
 #include <sys/time.h>
 
@@ -180,11 +181,13 @@ void sumArraysOnHost(float *A, float *B, float *C, const int N)
 
 
 
-__global__ void sumArraysOnGPU(float *A, float *B, float *C,const int N)
+//Write your device code here
+__global__ void sumArraysOnGPU(float *A, float *B, float *C, const int N)
 {
-    int i=blockIdx.x*blockDim.x+threadIdx.x;
-    if (i<N)C[i]=A[i]+B[i];
+    int i=blockIdx.x * blockDim.x + threadIdx.x;
+    if(i<N) C[i] = A[i] + B[i];
 }
+
 
 
 
@@ -251,7 +254,7 @@ int main(int argc, char **argv)
     CHECK(cudaMemcpy(d_C, gpuRef, nBytes, cudaMemcpyHostToDevice));
 
     // invoke kernel at host side
-    int iLen = 512;
+    int iLen = 1023;
     dim3 block (iLen);
     dim3 grid  ((nElem + block.x - 1) / block.x);
 
@@ -284,10 +287,13 @@ int main(int argc, char **argv)
 
     return(0);
 }
-  
 ```
 ## OUTPUT:
-<img width="962" height="210" alt="image" src="https://github.com/user-attachments/assets/c00ac612-9b13-45bc-aef0-3127ff17633e" />
+<img width="823" height="207" alt="image" src="https://github.com/user-attachments/assets/f0346a4b-f919-4c53-a1db-3f50c42f9d6c" />
+<img width="823" height="216" alt="image" src="https://github.com/user-attachments/assets/12a3b5d6-c9c2-444a-a8da-cf46f39e3c02" />
+<img width="823" height="214" alt="image" src="https://github.com/user-attachments/assets/17ec5f47-4769-49e8-bb81-e285359b55b1" />
+<img width="823" height="183" alt="image" src="https://github.com/user-attachments/assets/b138f8c9-3656-4463-9a20-2cc3d7a48baf" />
+
 
 
 ## RESULT:
